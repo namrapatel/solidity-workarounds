@@ -59,7 +59,7 @@ The error should have gone away, if it doesn't add the following solution on top
 Scoping a piece of code with { ... } has the same impact as placing that piece of code in a separate function. The UniswapV2 contracts use this [here](https://github.com/Uniswap/v2-core/blob/4dd59067c76dea4a0e8e4bfdda41877a6b16dedc/contracts/UniswapV2Pair.sol#L166).
 
 ``` Solidity
-function stackTooDeepSolution1(
+function stackTooDeepSolution2(
     uint256 one, 
     uint256 two) external {
         uint256[] localVars = new uint256[](4);
@@ -78,6 +78,31 @@ function stackTooDeepSolution1(
         {
         uint256 store2 = someLib.computeSomething(two, one, localVars[0], localVars[1], localVars[2], localVars[3], eight, seven, nine, ten);
         } 
+}
+```
+
+### Solution 3
+Use a struct to store the local variables. An advantage of a struct is that it's more readable compared to an array and it allows you to store variables of different types. [Compound](https://github.com/compound-finance/compound-protocol/blob/4a8648ec0364d24c4ecfc7d6cae254f55030d65f/contracts/CToken.sol#L480), [Aave](https://github.com/aave/protocol-v2/blob/c1ada1cb68bb26a39b6afdb299e58291b831f1ec/contracts/protocol/lendingpool/LendingPool.sol#L454) and [Uniswap V3](https://github.com/Uniswap/v3-core/blob/c05a0e2c8c08c460fb4d05cfdda30b3ad8deeaac/contracts/UniswapV3Pool.sol#L617) use this pattern.
+
+``` Solidity
+struct StackTooDeepLocalVars {
+    uint256 three;
+    uint256 four;
+    uint256 five;
+    uint256 six;
+}
+
+function stackTooDeepSolution3(uint256 one, uint256 two) external {
+    StackTooDeepLocalVars memory localVars = StackTooDeepLocalVars(3, 4, 5, 6);
+
+    uint32 seven = 7;
+    uint32 eight = 8;
+    uint32 nine = 9;
+    uint32 ten = 10;
+
+    uint256 store1 = someLib.computeSomething(one, two, localVars.three, localVars.four, localVars.five, localVars.six, seven, eight, nine, ten);
+
+    uint256 store2 = someLib.computeSomething(one, two, localVars.three, localVars.four, localVars.five, localVars.six, seven, eight, nine, ten);
 }
 ```
 

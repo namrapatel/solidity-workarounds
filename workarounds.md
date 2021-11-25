@@ -59,7 +59,7 @@ The error should have gone away, if it doesn't add the following solution on top
 Scoping a piece of code with { ... } has the same impact as placing that piece of code in a separate function. The UniswapV2 contracts use this [here](https://github.com/Uniswap/v2-core/blob/4dd59067c76dea4a0e8e4bfdda41877a6b16dedc/contracts/UniswapV2Pair.sol#L166).
 
 ``` Solidity
-function stackTooDeepSolution1(
+function stackTooDeepSolution2(
     uint256 one, 
     uint256 two) external {
         uint256[] localVars = new uint256[](4);
@@ -92,7 +92,7 @@ struct StackTooDeepLocalVars {
     uint256 six;
 }
 
-function stackTooDeepSolution1(uint256 one, uint256 two) external {
+function stackTooDeepSolution3(uint256 one, uint256 two) external {
     StackTooDeepLocalVars memory localVars = StackTooDeepLocalVars(3, 4, 5, 6);
 
     uint32 seven = 7;

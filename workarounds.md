@@ -80,3 +80,31 @@ function stackTooDeepSolution1(
         } 
 }
 ```
+
+## Hack around to reduce contract size due to revert string
+Sometimes, the contract size may get unncessarily large because of Error message in your `require` statement. 
+
+### Issue
+Lets say you want to print this message :
+\
+```
+function setA(uint _A) public {
+require(msg.sender == owner, "Restrcition error: Only Admin of the contract can set A");
+..
+}
+```
+Now, in VS code, you will see tailing yellow sign and when you hover over it, it would show that the Error message is too long. Becuase the error messages occopy space in the EVM.
+
+### Solution
+So, a work around to reduce is by using Error Codes instead of a full string. This is what [Aave v2](https://github.com/aave/protocol-v2/blob/master/contracts/protocol/libraries/helpers/Errors.sol) implements to reduce the contract size and compiler wont yell at you for trying to deploy a bulky cocntract.
+
+So, the above can be written as
+```
+string const Only_Admin_Can_Set = "1";
+function setA(uint _A) public {
+require(msg.sender == owner, Only_Admin_Can_Set);
+..
+}
+```
+
+

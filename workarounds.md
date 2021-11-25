@@ -100,31 +100,9 @@ function stackTooDeepSolution1(uint256 one, uint256 two) external {
     uint32 nine = 9;
     uint32 ten = 10;
 
-    uint256 store1 = someLib.computeSomething(
-        one,
-        two,
-        localVars.three,
-        localVars.four,
-        localVars.five,
-        localVars.six,
-        seven,
-        eight,
-        nine,
-        ten
-    );
+    uint256 store1 = someLib.computeSomething(one, two, localVars.three, localVars.four, localVars.five, localVars.six, seven, eight, nine, ten);
 
-    uint256 store2 = someLib.computeSomething(
-        two,
-        one,
-        localVars.three,
-        localVars.four,
-        localVars.five,
-        localVars.six,
-        seven,
-        eight,
-        nine,
-        ten
-    );
+    uint256 store2 = someLib.computeSomething(one, two, localVars.three, localVars.four, localVars.five, localVars.six, seven, eight, nine, ten);
 }
 ```
 

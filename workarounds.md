@@ -1,9 +1,9 @@
 # Workarounds
 
-Note: This is all hacky documentation, examples are made up and may not even throw the error that is described in the issue, but it should paint the picture nonetheless. Make an issue or PR in this repo if something here is confusing. 
+Note: This is all hacky documentation, examples are made up and may not even throw the error that is described in the issue, but it should paint the picture nonetheless. If you're deploying to prod, perhaps check all these solutions over. Make an issue or PR in this repo if something here is confusing. 
 
 ## Stack Too Deep EVM Exception
-If you have too many local variables or params in a function (I believe the limit is 16), sometimes the EVM will complain, "Stack too deep". When this happens, you can either be a giga-chad and look at the EVM bytecode do see whats happening with your function, or try the following solutions: 
+If you have too many local variables or params in a function (I believe the limit is 16), sometimes the EVM will complain, "Stack too deep". When this happens, you can either be a giga-chad and look at the EVM bytecode do see whats happening with your function to clean it up, or try the following solutions: 
 
 ### Issue example
 

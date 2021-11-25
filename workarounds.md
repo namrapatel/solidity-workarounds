@@ -81,6 +81,53 @@ function stackTooDeepSolution1(
 }
 ```
 
+### Solution 3
+Use a struct to store the local variables. An advantage of a struct is that it's more readable compared to an array and it allows you to store variables of different types. [Compound](https://github.com/compound-finance/compound-protocol/blob/4a8648ec0364d24c4ecfc7d6cae254f55030d65f/contracts/CToken.sol#L480), [Aave](https://github.com/aave/protocol-v2/blob/c1ada1cb68bb26a39b6afdb299e58291b831f1ec/contracts/protocol/lendingpool/LendingPool.sol#L454) and [Uniswap V3](https://github.com/Uniswap/v3-core/blob/c05a0e2c8c08c460fb4d05cfdda30b3ad8deeaac/contracts/UniswapV3Pool.sol#L617) use this pattern.
+
+``` Solidity
+struct StackTooDeepLocalVars {
+    uint256 three;
+    uint256 four;
+    uint256 five;
+    uint256 six;
+}
+
+function stackTooDeepSolution1(uint256 one, uint256 two) external {
+    StackTooDeepLocalVars memory localVars = StackTooDeepLocalVars(3, 4, 5, 6);
+
+    uint32 seven = 7;
+    uint32 eight = 8;
+    uint32 nine = 9;
+    uint32 ten = 10;
+
+    uint256 store1 = someLib.computeSomething(
+        one,
+        two,
+        localVars.three,
+        localVars.four,
+        localVars.five,
+        localVars.six,
+        seven,
+        eight,
+        nine,
+        ten
+    );
+
+    uint256 store2 = someLib.computeSomething(
+        two,
+        one,
+        localVars.three,
+        localVars.four,
+        localVars.five,
+        localVars.six,
+        seven,
+        eight,
+        nine,
+        ten
+    );
+}
+```
+
 ## Hack around to reduce contract size due to revert string
 Sometimes, the contract size may get unncessarily large because of Error message in your `require` statement. 
 
